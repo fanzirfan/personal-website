@@ -3,17 +3,17 @@ import Aurora from './component/Aurora'
 import ShinyText from './component/ShinyText'
 import Dock from './component/Dock'
 import OptimizedImage from './component/OptimizedImage'
+import PixelCard from './component/PixelCard'
 import { Icon } from '@iconify/react'
 import { motion, AnimatePresence } from 'motion/react'
 
 // Lazy load heavy components for better initial load
-const ProfileCard = lazy(() => import('./component/ProfileCard'))
 const GooeyNav = lazy(() => import('./component/GooeyNav'))
 
 // Simple loading placeholder
 const CardPlaceholder = () => (
-  <div className="w-full h-[70vh] max-h-[540px] bg-white/5 rounded-[30px] animate-pulse flex items-center justify-center">
-    <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
+  <div className="w-[300px] h-[400px] bg-white/5 rounded-[25px] animate-pulse flex items-center justify-center">
+    <div className="w-12 h-12 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
   </div>
 )
 
@@ -384,20 +384,46 @@ function App() {
 
               {/* Right - Profile Card */}
               <div className="flex justify-center md:justify-end mt-8 md:mt-0">
-                <Suspense fallback={<CardPlaceholder />}>
-                  <ProfileCard
-                    avatarUrl="/profil.webp"
-                    name="Muhammad Irfan"
-                    title="Graphic Designer & Vibe Coder"
-                    handle="fanzirfan"
-                    status="Online"
-                    contactText="Contact Me"
-                    showUserInfo={true}
-                    enableMobileTilt={true}
-                    onContactClick={() => window.location.href = '#contact'}
-                    className="scale-90 md:scale-100"
-                  />
-                </Suspense>
+                <PixelCard
+                  variant="blue"
+                  gap={5}
+                  speed={25}
+                  colors="#0ea5e9,#38bdf8,#7dd3fc,#5ce6ff"
+                  className="!w-[260px] !h-[360px] md:!w-[280px] md:!h-[380px] bg-primary/80"
+                >
+                  {/* Profile Content Overlay */}
+                  <div className="absolute inset-0 flex flex-col z-10">
+                    {/* Top: Name & Title */}
+                    <div className="text-center pt-4 px-4">
+                      <h3 className="text-lg md:text-xl font-bold text-white">Muhammad Irfan</h3>
+                      <p className="text-xs text-cyan-300">Graphic Designer & Vibe Coder</p>
+                    </div>
+
+                    {/* Photo fills the rest - NO border */}
+                    <div className="flex-1 relative mt-3 overflow-hidden">
+                      <img
+                        src="/profil.webp"
+                        alt="Muhammad Irfan"
+                        className="w-full h-full object-cover object-top"
+                        loading="eager"
+                      />
+
+                      {/* Gradient overlay at bottom for button */}
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 pt-12">
+                        <div className="flex items-center justify-center gap-2 text-xs mb-2">
+                          <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                          <span className="text-white/90">@fanzirfan • Online</span>
+                        </div>
+                        <button
+                          onClick={() => window.location.href = '#contact'}
+                          className="w-full py-2.5 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/30 rounded-xl text-white text-sm font-semibold transition-all"
+                        >
+                          Contact Me
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </PixelCard>
               </div>
             </div>
           </div>
