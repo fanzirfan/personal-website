@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import Aurora from './component/Aurora'
-import GooeyNav from './component/GooeyNav'
 import ShinyText from './component/ShinyText'
-import ProfileCard from './component/ProfileCard'
-import SpotlightCard from './component/SpotlightCard'
 import Dock from './component/Dock'
 import { Icon } from '@iconify/react'
 import { motion, AnimatePresence } from 'motion/react'
+
+// Lazy load heavy components for better initial load
+const ProfileCard = lazy(() => import('./component/ProfileCard'))
+const GooeyNav = lazy(() => import('./component/GooeyNav'))
+
+// Simple loading placeholder
+const CardPlaceholder = () => (
+  <div className="w-full h-[70vh] max-h-[540px] bg-white/5 rounded-[30px] animate-pulse flex items-center justify-center">
+    <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
+  </div>
+)
+
+const NavPlaceholder = () => (
+  <div className="h-12 w-[500px] max-w-full bg-white/10 rounded-full animate-pulse" />
+)
 
 // Animated Section Component for scroll animations
 const AnimatedSection = ({ children, className = '', delay = 0 }) => (
@@ -273,16 +285,18 @@ function App() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex justify-center">
             <div className="px-4 py-2">
-              <GooeyNav
-                items={navItems}
-                particleCount={15}
-                particleDistances={[90, 10]}
-                particleR={100}
-                initialActiveIndex={0}
-                animationTime={600}
-                timeVariance={300}
-                colors={[1, 2, 3, 1, 2, 3, 1, 4]}
-              />
+              <Suspense fallback={<NavPlaceholder />}>
+                <GooeyNav
+                  items={navItems}
+                  particleCount={15}
+                  particleDistances={[90, 10]}
+                  particleR={100}
+                  initialActiveIndex={0}
+                  animationTime={600}
+                  timeVariance={300}
+                  colors={[1, 2, 3, 1, 2, 3, 1, 4]}
+                />
+              </Suspense>
             </div>
           </div>
         </header>
@@ -345,18 +359,20 @@ function App() {
 
               {/* Right - Profile Card */}
               <div className="flex justify-center md:justify-end mt-8 md:mt-0">
-                <ProfileCard
-                  avatarUrl="/profil.png"
-                  name="Muhammad Irfan"
-                  title="Graphic Designer & Vibe Coder"
-                  handle="fanzirfan"
-                  status="Online"
-                  contactText="Contact Me"
-                  showUserInfo={true}
-                  enableMobileTilt={true}
-                  onContactClick={() => window.location.href = '#contact'}
-                  className="scale-90 md:scale-100"
-                />
+                <Suspense fallback={<CardPlaceholder />}>
+                  <ProfileCard
+                    avatarUrl="/profil.webp"
+                    name="Muhammad Irfan"
+                    title="Graphic Designer & Vibe Coder"
+                    handle="fanzirfan"
+                    status="Online"
+                    contactText="Contact Me"
+                    showUserInfo={true}
+                    enableMobileTilt={true}
+                    onContactClick={() => window.location.href = '#contact'}
+                    className="scale-90 md:scale-100"
+                  />
+                </Suspense>
               </div>
             </div>
           </div>

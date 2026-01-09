@@ -168,8 +168,18 @@ export default function Aurora(props) {
     ctn.appendChild(gl.canvas);
 
     let animateId = 0;
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Throttle to 30fps for better mobile performance
+    const frameInterval = 1000 / targetFPS;
+
     const update = t => {
       animateId = requestAnimationFrame(update);
+
+      // Throttle frame rate
+      const deltaTime = t - lastFrameTime;
+      if (deltaTime < frameInterval) return;
+      lastFrameTime = t - (deltaTime % frameInterval);
+
       const { time = t * 0.01, speed = 1.0 } = propsRef.current;
       program.uniforms.uTime.value = time * speed * 0.1;
       program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;

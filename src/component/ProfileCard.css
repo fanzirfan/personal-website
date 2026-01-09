@@ -45,9 +45,12 @@
   background: radial-gradient(circle at var(--pointer-x) var(--pointer-y),
       var(--behind-glow-color) 0%,
       transparent var(--behind-glow-size));
-  filter: blur(50px) saturate(1.1);
-  opacity: calc(0.8 * var(--card-opacity));
+  filter: blur(30px) saturate(1.1);
+  /* Reduced from 50px for better perf */
+  opacity: calc(0.6 * var(--card-opacity));
   transition: opacity 200ms ease;
+  will-change: opacity, filter;
+  contain: layout paint;
 }
 
 .pc-card-wrapper:hover,
@@ -109,10 +112,14 @@
   mask-size: 150%;
   mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
   transition: filter 0.8s ease;
-  filter: brightness(0.66) contrast(1.33) saturate(0.33) opacity(0.5);
-  animation: holo-bg 18s linear infinite;
+  filter: brightness(0.66) contrast(1.33) saturate(0.33) opacity(0.4);
+  /* Reduced opacity */
+  animation: holo-bg 24s linear infinite;
+  /* Slower animation */
   animation-play-state: running;
   mix-blend-mode: color-dodge;
+  will-change: background-position;
+  contain: layout;
 }
 
 .pc-shine,
@@ -267,12 +274,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(30, 30, 40, 0.85);
+  /* Solid bg instead of blur for perf */
+  backdrop-filter: blur(12px);
+  /* Reduced from 30px */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: calc(max(0px, var(--card-radius) - var(--ui-inset) + var(--ui-radius-bias)));
   padding: 12px 14px;
   pointer-events: auto;
+  will-change: backdrop-filter;
 }
 
 .pc-user-details {
@@ -318,15 +329,16 @@
 }
 
 .pc-contact-btn {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   padding: 12px 16px;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
   cursor: pointer;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  background: rgba(60, 60, 80, 0.6);
+  /* Solid bg instead of blur */
 }
 
 .pc-contact-btn:hover {
