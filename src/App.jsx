@@ -2,7 +2,6 @@ import { useState, lazy, Suspense, memo } from 'react'
 import Aurora from './component/Aurora'
 import ShinyText from './component/ShinyText'
 import Dock from './component/Dock'
-import OptimizedImage from './component/OptimizedImage'
 import PixelCard from './component/PixelCard'
 import { Icon } from '@iconify/react'
 import { motion, AnimatePresence } from 'motion/react'
@@ -21,22 +20,24 @@ const NavPlaceholder = () => (
   <div className="h-12 w-[500px] max-w-full bg-white/10 rounded-full animate-pulse" />
 )
 
-// Optimized Image Card Component
+// Simple Image Card Component - using native lazy loading for performance
 const ImageCard = memo(({ item, index }) => (
   <a
     key={index}
     href={item.link}
     target="_blank"
     rel="noopener noreferrer"
-    className="glass-card glass-card-hover overflow-hidden block group"
+    className="block overflow-hidden rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-colors duration-200 group"
   >
-    <OptimizedImage
-      src={item.image}
-      alt={item.title}
-      className="aspect-video bg-white/5 group-hover:scale-105 transition-transform duration-200"
-      width={800}
-      height={450}
-    />
+    <div className="aspect-video overflow-hidden bg-white/5">
+      <img
+        src={item.image}
+        alt={item.title}
+        loading="lazy"
+        decoding="async"
+        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+      />
+    </div>
     <div className="p-4">
       <h3 className="text-lg font-bold mb-1">{item.title}</h3>
       <p className="text-white/70 text-sm">{item.description}</p>
@@ -333,12 +334,12 @@ function App() {
           onClose={() => setMobileMenuOpen(false)}
         />
 
-        {/* Hero Section - New Layout */}
-        <section id="home" className="min-h-screen flex items-center pt-20">
+        {/* Hero Section */}
+        <section id="home" className="min-h-screen flex items-center pt-20 pb-20">
           <div className="section-container w-full">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
               {/* Left Content */}
-              <div>
+              <div className="flex-1 max-w-xl">
                 {/* Quote Badge */}
                 <div className="glass-card inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 mb-6 sm:mb-8">
                   <Icon icon="twemoji:watermelon" className="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0" />
@@ -362,7 +363,7 @@ function App() {
                 </h1>
 
                 {/* Description */}
-                <p className="text-sm sm:text-base md:text-lg text-white/70 mb-6 sm:mb-8 max-w-lg">
+                <p className="text-sm sm:text-base md:text-lg text-white/70 mb-6 sm:mb-8">
                   A passionate graphic designer and vibe coder, leveraging AI to build modern websites and applications while crafting high-quality visual experiences through innovative and creative solutions.
                 </p>
 
@@ -383,13 +384,13 @@ function App() {
               </div>
 
               {/* Right - Profile Card */}
-              <div className="flex justify-center md:justify-end mt-8 md:mt-0">
+              <div className="hidden md:block flex-shrink-0">
                 <PixelCard
                   variant="blue"
                   gap={5}
                   speed={25}
                   colors="#0ea5e9,#38bdf8,#7dd3fc,#5ce6ff"
-                  className="!w-[260px] !h-[360px] md:!w-[280px] md:!h-[380px] bg-primary/80"
+                  className="!w-[280px] !h-[380px] bg-primary/80"
                 >
                   {/* Profile Content Overlay */}
                   <div className="absolute inset-0 flex flex-col z-10">
@@ -399,7 +400,7 @@ function App() {
                       <p className="text-xs text-cyan-300">Graphic Designer & Vibe Coder</p>
                     </div>
 
-                    {/* Photo fills the rest - NO border */}
+                    {/* Photo fills the rest */}
                     <div className="flex-1 relative mt-3 overflow-hidden">
                       <img
                         src="/profil.webp"
