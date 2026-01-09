@@ -1,7 +1,8 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState, lazy, Suspense, memo } from 'react'
 import Aurora from './component/Aurora'
 import ShinyText from './component/ShinyText'
 import Dock from './component/Dock'
+import OptimizedImage from './component/OptimizedImage'
 import { Icon } from '@iconify/react'
 import { motion, AnimatePresence } from 'motion/react'
 
@@ -19,6 +20,30 @@ const CardPlaceholder = () => (
 const NavPlaceholder = () => (
   <div className="h-12 w-[500px] max-w-full bg-white/10 rounded-full animate-pulse" />
 )
+
+// Optimized Image Card Component
+const ImageCard = memo(({ item, index }) => (
+  <a
+    key={index}
+    href={item.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="glass-card glass-card-hover overflow-hidden block group"
+  >
+    <OptimizedImage
+      src={item.image}
+      alt={item.title}
+      className="aspect-video bg-white/5 group-hover:scale-105 transition-transform duration-200"
+      width={800}
+      height={450}
+    />
+    <div className="p-4">
+      <h3 className="text-lg font-bold mb-1">{item.title}</h3>
+      <p className="text-white/70 text-sm">{item.description}</p>
+    </div>
+  </a>
+))
+ImageCard.displayName = 'ImageCard'
 
 // Animated Section Component for scroll animations
 const AnimatedSection = ({ children, className = '', delay = 0 }) => (
@@ -416,21 +441,7 @@ function App() {
           <h2 className="section-title text-center">My Websites</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {websiteItems.map((item, index) => (
-              <a key={index} href={item.link} target="_blank" rel="noopener noreferrer" className="glass-card glass-card-hover overflow-hidden block group">
-                <div className="aspect-video overflow-hidden bg-white/5">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold mb-1">{item.title}</h3>
-                  <p className="text-white/70 text-sm">{item.description}</p>
-                </div>
-              </a>
+              <ImageCard key={index} item={item} index={index} />
             ))}
           </div>
         </section>
@@ -440,21 +451,7 @@ function App() {
           <h2 className="section-title text-center">Portfolio</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {portfolioItems.map((item, index) => (
-              <a key={index} href={item.link} target="_blank" rel="noopener noreferrer" className="glass-card glass-card-hover overflow-hidden block group">
-                <div className="aspect-video overflow-hidden bg-white/5">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold mb-1">{item.title}</h3>
-                  <p className="text-white/70 text-sm">{item.description}</p>
-                </div>
-              </a>
+              <ImageCard key={index} item={item} index={index} />
             ))}
           </div>
         </section>
@@ -495,21 +492,7 @@ function App() {
           <h2 className="section-title text-center">Blog</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {blogItems.map((item, index) => (
-              <a key={index} href={item.link} target="_blank" rel="noopener noreferrer" className="glass-card glass-card-hover overflow-hidden block group">
-                <div className="aspect-video overflow-hidden bg-white/5">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold mb-1">{item.title}</h3>
-                  <p className="text-white/70 text-sm">{item.description}</p>
-                </div>
-              </a>
+              <ImageCard key={index} item={item} index={index} />
             ))}
           </div>
         </section>

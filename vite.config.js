@@ -10,4 +10,29 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Enable minification
+    minify: 'esbuild',
+    // Target modern browsers for smaller bundle
+    target: 'es2020',
+    // Optimize chunk splitting
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor chunks for better caching
+          'react-vendor': ['react', 'react-dom'],
+          'motion': ['motion'],
+          'icons': ['@iconify/react'],
+        },
+      },
+    },
+    // Reduce source map size in production
+    sourcemap: false,
+    // CSS code splitting
+    cssCodeSplit: true,
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'motion'],
+  },
 })
