@@ -384,7 +384,7 @@ function App() {
               </div>
 
               {/* Right - Profile Card */}
-              <div className="hidden md:block flex-shrink-0">
+              <div className="flex justify-center md:justify-end flex-shrink-0">
                 <PixelCard
                   variant="blue"
                   gap={5}
