@@ -274,6 +274,41 @@ const TimelineItem = ({ period, title, items, isLast }) => (
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState('idle'); // idle, submitting, success, error
+  const [formMessage, setFormMessage] = useState('');
+
+  const handleContactSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+
+    const formData = new FormData(e.target);
+    formData.append('access_key', import.meta.env.VITE_WEB3FORMS_KEY);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setFormStatus('success');
+        setFormMessage('Thank you! Your message has been sent successfully.');
+        e.target.reset();
+        setTimeout(() => {
+          setFormStatus('idle');
+          setFormMessage('');
+        }, 5000);
+      } else {
+        setFormStatus('error');
+        setFormMessage('Something went wrong. Please try again.');
+      }
+    } catch {
+      setFormStatus('error');
+      setFormMessage('Network error. Please check your connection.');
+    }
+  };
 
   return (
     <div className="relative min-h-screen">
@@ -524,14 +559,98 @@ function App() {
           </div>
         </section>
 
-        {/* Contact Section with Dock */}
+        {/* Contact Section with Form and Dock */}
         <AnimatedSection>
           <section id="contact" className="section-container">
             <h2 className="section-title text-center">Contact Me</h2>
-            <div className="max-w-xl mx-auto text-center mb-12">
-              <p className="text-white/80 mb-8">
-                Interested in working together or have any questions? Feel free to reach out through the platforms below.
+            <div className="max-w-2xl mx-auto">
+              <p className="text-white/80 mb-8 text-center">
+                Interested in working together or have any questions? Feel free to reach out!
               </p>
+
+              {/* Contact Form */}
+              <form onSubmit={handleContactSubmit} className="glass-card p-6 sm:p-8 mb-8">
+                <div className="space-y-6">
+                  {/* Name Field */}
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-2">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      placeholder="Your name"
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all"
+                    />
+                  </div>
+
+                  {/* Email Field */}
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-white/80 mb-2">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      placeholder="your@email.com"
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all"
+                    />
+                  </div>
+
+                  {/* Message Field */}
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-white/80 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={5}
+                      placeholder="Write your message here..."
+                      className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 transition-all resize-none"
+                    />
+                  </div>
+
+                  {/* Status Message */}
+                  {formMessage && (
+                    <div className={`p-4 rounded-xl text-center ${formStatus === 'success'
+                      ? 'bg-green-500/20 border border-green-500/30 text-green-300'
+                      : 'bg-red-500/20 border border-red-500/30 text-red-300'
+                      }`}>
+                      {formMessage}
+                    </div>
+                  )}
+
+                  {/* Submit Button */}
+                  <motion.button
+                    type="submit"
+                    disabled={formStatus === 'submitting'}
+                    className="w-full py-3 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 rounded-xl text-white font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    whileHover={{ scale: formStatus !== 'submitting' ? 1.02 : 1 }}
+                    whileTap={{ scale: formStatus !== 'submitting' ? 0.98 : 1 }}
+                  >
+                    {formStatus === 'submitting' ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                        </svg>
+                        Sending...
+                      </span>
+                    ) : (
+                      'Send Message'
+                    )}
+                  </motion.button>
+                </div>
+              </form>
+
+              {/* Social Links Label */}
+              <p className="text-white/60 text-center mb-4 text-sm">Or connect with me on social media</p>
             </div>
             <div className="relative h-32">
               <Dock
