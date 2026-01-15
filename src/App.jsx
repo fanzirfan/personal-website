@@ -213,6 +213,9 @@ const websiteItems = [
   { title: "SendTheLink", description: "A platform to share links easily and quickly.", image: "/web/sendthelink.webp", link: "https://sendthelink.vercel.app/" },
   { title: "Kita Tidak Akan Asing", description: "A card game to get to know each other.", image: "/web/kita.webp", link: "https://kita.fan.my.id/" },
   { title: "Mooncrest Leaderboard", description: "Leaderboard system for the Mooncrest community.", image: "/web/mooncrest.webp", link: "https://leaderboard.mooncrest.my.id/" },
+  { title: "MyFinance", description: "Personal finance tracking app to manage your money easily.", image: "/web/myfinance.webp", link: "https://duit.fan.my.id/" },
+  { title: "Cloudflare Email Panel", description: "Email management panel powered by Cloudflare.", image: "/web/email.webp", link: "https://app.madshin.eu.org/" },
+  { title: "Koje Archive", description: "Digital archive and file storage system.", image: "/web/koje-archive.webp", link: "https://arsip.manji.eu.org/" },
 ];
 
 const historyEducation = [
