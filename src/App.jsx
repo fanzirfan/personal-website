@@ -180,6 +180,7 @@ const navItems = [
   { label: "Experience", href: "#experience" },
   { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
+  { label: "PGP", href: "/pgp" },
 ];
 
 const skills = [

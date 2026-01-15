@@ -17,6 +17,10 @@ export default defineConfig({
     target: 'es2020',
     // Optimize chunk splitting
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        pgp: path.resolve(__dirname, 'pgp.html'),
+      },
       output: {
         manualChunks: {
           // Split vendor chunks for better caching
