@@ -1,5 +1,12 @@
 {
   "rewrites": [
-    { "source": "/pgp", "destination": "/pgp.html" }
+    {
+      "source": "/pgp",
+      "destination": "/pgp.html"
+    },
+    {
+      "source": "/donate",
+      "destination": "/donate.html"
+    }
   ]
 }
