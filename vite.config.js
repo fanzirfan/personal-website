@@ -20,6 +20,7 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, 'index.html'),
         pgp: path.resolve(__dirname, 'pgp.html'),
+        donate: path.resolve(__dirname, 'donate.html'),
       },
       output: {
         manualChunks: {

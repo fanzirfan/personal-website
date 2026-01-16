@@ -181,6 +181,7 @@ const navItems = [
   { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
   { label: "PGP", href: "/pgp" },
+  { label: "Donate", href: "/donate" },
 ];
 
 const skills = [
