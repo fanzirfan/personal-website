@@ -95,10 +95,10 @@ export default function DonatePage() {
             <div className="inline-flex items-center justify-center p-4 bg-emerald-500/10 rounded-full mb-4 ring-1 ring-emerald-500/30">
               <Icon icon="heroicons:heart" className="w-8 h-8 text-emerald-400" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight pb-1 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
               Support My Work
             </h1>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
+            <p className="text-lg text-white/60 max-w-2xl mx-auto mt-1">
               If you find my work helpful or valuable, consider supporting me through a donation. Every contribution helps me continue creating and improving.
             </p>
           </motion.div>

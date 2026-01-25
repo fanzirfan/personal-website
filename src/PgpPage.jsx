@@ -208,10 +208,10 @@ export default function PgpPage() {
             <div className="inline-flex items-center justify-center p-4 bg-cyan-500/10 rounded-full mb-4 ring-1 ring-cyan-500/30">
               <Icon icon="heroicons:lock-closed" className="w-8 h-8 text-cyan-400" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight pb-1 bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">
               Public PGP Key
             </h1>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
+            <p className="text-lg text-white/60 max-w-2xl mx-auto mt-1">
               Use this key to encrypt messages sent to me or verify the authenticity of my signed commits and documents.
             </p>
           </motion.div>

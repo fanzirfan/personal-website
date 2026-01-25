@@ -117,7 +117,8 @@ const AnimatedList = ({
         });
       }
     }
-    setKeyboardNav(false);
+    const resetTimer = setTimeout(() => setKeyboardNav(false), 0);
+    return () => clearTimeout(resetTimer);
   }, [selectedIndex, keyboardNav]);
 
   return (

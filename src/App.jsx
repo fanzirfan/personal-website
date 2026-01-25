@@ -176,28 +176,30 @@ const navItems = [
   { label: "Home", href: "#home" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
-  { label: "Portfolio", href: "#portfolio" },
+  { label: "Project", href: "#websites" },
   { label: "Experience", href: "#experience" },
   { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
   { label: "PGP", href: "/pgp" },
-  { label: "Donate", href: "/donate" },
 ];
 
 const skills = [
   { name: "Photoshop", iconName: "mage:photoshop" },
   { name: "Illustrator", iconName: "mage:illustrator" },
   { name: "Affinity Designer", iconName: "streamline-logos:affinity-logo-block" },
-  { name: "Vibe Coding", iconName: "material-symbols:antigravity" },
+  { name: "Google Anigravity", iconName: "material-symbols:antigravity" },
   { name: "HTML", iconName: "flowbite:html-solid" },
   { name: "CSS", iconName: "flowbite:css-solid" },
   { name: "JavaScript", iconName: "fa-brands:js-square" },
   { name: "Node.js", iconName: "la:node" },
   { name: "React", iconName: "flowbite:react-solid" },
+  {name: "Next.js", iconName: "akar-icons:nextjs-fill"},
   { name: "Vue.js", iconName: "teenyicons:vue-solid" },
   { name: "Cloudflare", iconName: "cib:cloudflare" },
   { name: "Firebase", iconName: "teenyicons:firebase-solid" },
   { name: "GitHub", iconName: "ri:github-fill" },
+  { name: "Git", iconName: "bi:git" },
+  { name: "Bun", iconName: "simple-icons:bun" },
 ];
 
 const portfolioItems = [
@@ -485,7 +487,7 @@ function App() {
         {/* Skills Section - Icons Only */}
         <AnimatedSection delay={0.1}>
           <section id="skills" className="section-container">
-            <h2 className="section-title text-center">Skills</h2>
+            <h2 className="section-title text-center">Tech Stack</h2>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
               {skills.map((skill, index) => (
                 <div
@@ -566,7 +568,7 @@ function App() {
 
         {/* Contact Section with Form and Dock */}
         <AnimatedSection>
-          <section id="contact" className="section-container">
+          <section id="contact" className="section-container pb-8 sm:pb-10 md:pb-12">
             <h2 className="section-title text-center">Contact Me</h2>
             <div className="max-w-2xl mx-auto">
               <p className="text-white/80 mb-8 text-center">
@@ -670,6 +672,15 @@ function App() {
 
         {/* Footer */}
         <footer className="py-8 text-center text-white/50">
+          <div className="mb-4">
+            <a
+              href="/donate"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/80 hover:text-white hover:bg-white/10 transition-colors"
+            >
+              <Icon icon="ph:coffee" className="w-4 h-4" />
+              <span className="text-sm font-medium">Support Me</span>
+            </a>
+          </div>
           <p>&copy; {new Date().getFullYear()} Muhammad Irfan. All rights reserved.</p>
         </footer>
       </div>
